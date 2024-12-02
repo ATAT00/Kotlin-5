@@ -1,5 +1,7 @@
 package ru.otus.cars
 
+import ru.otus.cars.fuel.TankMouth
+
 object Taz: Car {
     /**
      * Номерной знак
@@ -36,4 +38,7 @@ object Taz: Car {
     override fun wheelToLeft(degrees: Int) {
         throw NotImplementedError("Руля нет")
     }
+
+    override val tankMouth: TankMouth
+        get() = throw NotImplementedError("Взрыв")
 }

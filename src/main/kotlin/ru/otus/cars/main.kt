@@ -1,6 +1,10 @@
 package ru.otus.cars
 
+import ru.otus.cars.gasstation.GasStation
+
 fun main() {
+    println("\n===> refueling")
+    refueling()
     println("\n===> drive cars...")
     driveCars()
     println("\n===> inner test...")
@@ -89,5 +93,32 @@ fun repairEngine(car: VazPlatform) {
     when (car.engine) {
         is VazEngine.LADA_2107 -> println("Чистка карбюратора у двигателя объемом ${car.engine.volume} куб.см у машины $car")
         is VazEngine.SAMARA_2108 -> println("Угол зажигания у двигателя объемом ${car.engine.volume} куб.см у машины $car")
+    }
+}
+
+fun refueling() {
+    val vaz2107 = Vaz2107.build(Car.Plates("123", 77))
+    val vaz2108 = Vaz2108.build(Car.Plates("321", 78))
+    val taz = Taz
+
+    println("Fuel level of VAZ2107: ${vaz2107.VazOutput().getFuelContents()}")
+    println("Fuel level of VAZ2108: ${vaz2108.VazOutput().getFuelContents()}")
+    try {
+        println("Fuel level of TAZ: ${taz.carOutput.getFuelContents()}")
+    } catch (e: Error) {
+        println("Can't get TAZ's fuel level: ${e.message}")
+    }
+
+    val gasStation = GasStation()
+    gasStation.fillUpCar(vaz2107, 60)
+    gasStation.fillUpCar(vaz2108, 40)
+    gasStation.fillUpCar(taz, 10)
+
+    println("Fuel level of VAZ2107: ${vaz2107.VazOutput().getFuelContents()}")
+    println("Fuel level of VAZ2108: ${vaz2108.VazOutput().getFuelContents()}")
+    try {
+        println("Fuel level of TAZ: ${taz.carOutput.getFuelContents()}")
+    } catch (e: Error) {
+        println("Can't get TAZ's fuel level: ${e.message}")
     }
 }
